@@ -8,6 +8,7 @@ class SwProvider extends HTMLBodyElement {
     }
 
     connectedCallback() {
+        this.#embed();
         this.#render();
         this.addEventListener('sw-login', this.#render.bind(this));
         this.addEventListener('sw-logout', this.#render.bind(this));
@@ -15,11 +16,20 @@ class SwProvider extends HTMLBodyElement {
 
     #render() {
         if (localStorage.getItem('github')) {
-            document.querySelector('sw-login').hide();
-            document.querySelector('sw-logout').show();
+            this.querySelector('sw-login').hide();
+            this.querySelector('sw-logout').show();
         } else {
-            document.querySelector('sw-logout').hide();
-            document.querySelector('sw-login').show();
+            this.querySelector('sw-logout').hide();
+            this.querySelector('sw-login').show();
+        }
+    }
+
+    #embed() {
+        const searchParams = new URLSearchParams(window.location.search);
+        if (searchParams.get('embed') === "") {
+            this.style.justifyContent = 'center';
+            this.querySelector('header').style.display = 'none';
+            this.querySelector('footer').style.display = 'none';
         }
     }
 }

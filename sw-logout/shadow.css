@@ -1,6 +1,7 @@
 :host {
     display: none;
     font-size: medium;
+    max-width: 80vw;
 }
 
 img {
