@@ -29,8 +29,10 @@ class SwLogin extends HTMLElement {
             localStorage.setItem('github', JSON.stringify(github));
             localStorage.setItem('password', Number(localStorage.getItem('remember')) ? password : "");
             this.dispatchEvent(new CustomEvent("sw-login", { bubbles: true, composed: true, detail: { action: "login" }}));
+            if (window.parent) window.parent.postMessage(localStorage.getItem('github'), "*");
         } else {
             this.shadowRoot.getElementById('message').textContent = "Incorrect Personal Access Token";
+            //if (window.parent) window.parent.postMessage("{}", "*");
         }
     }
 

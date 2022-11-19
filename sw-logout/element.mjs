@@ -7,6 +7,15 @@ class SwLogout extends HTMLElement {
         this.shadowRoot.appendChild(template.content.cloneNode(true));
     }
 
+    connectedCallback() {
+        window.addEventListener("message", async event => {
+            if (event.data === 'logout') {
+                await this.logout(event);
+                event.source.postMessage("{}", event.origin);
+            }
+        });
+    }
+
     hide() {
         this.style.display = 'none';
     }

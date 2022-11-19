@@ -12,6 +12,7 @@ class SwProvider extends HTMLBodyElement {
         this.#render();
         this.addEventListener('sw-login', this.#render.bind(this));
         this.addEventListener('sw-logout', this.#render.bind(this));
+        if (window.parent) window.parent.postMessage(localStorage.getItem('github') || "{}", "*");
     }
 
     #render() {
